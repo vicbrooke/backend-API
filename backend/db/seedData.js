@@ -1,7 +1,7 @@
 const articles = [
   {
     title: "How to Stay Productive While Working Remotely",
-    author: "John Doe",
+    author: "Joe Bloggs",
     body: "With more people working from home than ever before, it's important to stay productive and avoid distractions. By setting clear goals, establishing a routine, and creating a dedicated workspace, you can stay on track and achieve your work objectives.",
     votes: 100,
     userId: 1,
@@ -22,7 +22,7 @@ const articles = [
   },
   {
     title: "The Benefits of a Plant-Based Diet",
-    author: "John Doe",
+    author: "Joe Bloggs",
     body: "A plant-based diet has many health benefits, such as reducing the risk of heart disease, cancer, and diabetes. By incorporating more fruits, vegetables, and whole grains into your diet, you can improve your overall health and reduce your environmental impact.",
     votes: 90,
     userId: 1,
@@ -43,7 +43,7 @@ const articles = [
   },
   {
     title: "The Benefits of Regular Exercise",
-    author: " John Doe",
+    author: " Joe Bloggs",
     body: " Regular exercise has many benefits, such as improving cardiovascular health, reducing the risk of chronic disease, and boosting mood and energy levels. By making exercise a part of your daily routine, you can improve your overall health and quality of life.",
     votes: 70,
     userId: 1,
@@ -64,7 +64,7 @@ const articles = [
   },
   {
     title: "The Benefits of Yoga",
-    author: "John Doe",
+    author: "Joe Bloggs",
     body: "Yoga has been practiced for thousands of years and has many benefits, such as reducing stress, improving flexibility, and promoting relaxation. If you're looking to improve your physical and mental health, give yoga a try.",
     votes: 85,
     userId: 1,
@@ -87,7 +87,7 @@ const comments = [
   {
     body: "I've been meditating for a few months now, and it's really helped me manage my anxiety and improve my focus. It's great to see more people talking about the benefits of mindfulness.",
     votes: 25,
-    author: "John Doe",
+    author: "Joe Bloggs",
     articleId: 2,
   },
   {
@@ -99,7 +99,7 @@ const comments = [
   {
     body: "Networking has been a game-changer for me in terms of finding new job opportunities and advancing my career. It's great to see more people recognizing its importance.",
     votes: 30,
-    author: "John Doe",
+    author: "Joe Bloggs",
     articleId: 3,
   },
   {
@@ -123,7 +123,7 @@ const comments = [
   {
     body: "These are really helpful tips! As someone who struggles with writing, I appreciate the practical advice.",
     votes: 25,
-    author: "John Doe",
+    author: "Joe Bloggs",
     articleId: 5,
   },
   {
@@ -135,7 +135,7 @@ const comments = [
   {
     body: "Thank you for raising awareness about mental health. As someone who has struggled with anxiety and depression, it's so important to reduce the stigma and promote education and support.",
     votes: 30,
-    author: "John Doe",
+    author: "Joe Bloggs",
     articleId: 6,
   },
   {
@@ -160,7 +160,7 @@ const comments = [
   {
     body: "These are great tips for anyone looking to improve their public speaking skills. As someone who used to struggle with public speaking, I can attest to the importance of practice and preparation.",
     votes: 14,
-    author: "John Doe",
+    author: "Joe Bloggs",
     articleId: 8,
   },
   {
@@ -178,7 +178,7 @@ const comments = [
   {
     body: "I've been feeling overwhelmed by all the clutter in my life lately, and I think minimalism could be a helpful solution. Do you have any resources or advice for getting started?",
     votes: 5,
-    author: "John Doe",
+    author: "Joe Bloggs",
     articleId: 9,
   },
   {
@@ -197,11 +197,11 @@ const comments = [
 
 const users = [
   {
-    username: "johndoe",
-    name: "John Doe",
+    username: "joebloggs",
+    name: "Joe Bloggs",
     password: "password123",
-    email: "johndoe@example.com",
-    avatar_URL: "https://example.com/avatar/johndoe.jpg",
+    email: "joebloggs@example.com",
+    avatar_URL: "https://example.com/avatar/joebloggs.jpg",
   },
   {
     username: "sarahsmith",
