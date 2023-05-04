@@ -1,0 +1,15 @@
+{
+    "GET /": {
+        "description": "serves up a json representation of all the available endpoints of the API"
+    },
+    "GET /users": {
+        "description": "serves up an array of all users"
+    },
+    "GET /articles": {
+        "description": "serves up an array of all articles"
+    },
+    "GET /comments": {
+        "description": "serves up an array of all comments"
+    }
+
+}
