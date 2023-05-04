@@ -8,7 +8,7 @@ const articleRouter = Router();
 articleRouter.get("/", async (req, res, next) => {
   try {
     const articles = await Article.findAll();
-    res.status(200).send(articles);
+    res.status(200).send({ articles });
   } catch (error) {
     console.log(error);
     next(error);

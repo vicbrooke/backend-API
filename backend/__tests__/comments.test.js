@@ -22,7 +22,9 @@ describe("users", () => {
       // expect a response
       expect(response.body).toBeDefined();
       // toEqual checks deep equality in objects
-      expect(response.body[0]).toEqual(expect.objectContaining(comments[0]));
+      expect(response.body.comments[0]).toEqual(
+        expect.objectContaining(comments[0])
+      );
     });
   });
 

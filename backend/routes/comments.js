@@ -8,7 +8,7 @@ const commentRouter = Router();
 commentRouter.get("/", async (req, res, next) => {
   try {
     const comments = await Comment.findAll();
-    res.status(200).send(comments);
+    res.status(200).send({ comments });
   } catch (error) {
     console.log(error);
     next(error);
