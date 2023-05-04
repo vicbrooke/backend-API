@@ -1,4 +1,4 @@
-const { sequelize } = require("./db");
+const { db } = require("./db");
 const seed = require("./seedFn");
 
 seed()
@@ -9,5 +9,5 @@ seed()
     console.error(err);
   })
   .finally(() => {
-    sequelize.close();
+    db.close();
   });

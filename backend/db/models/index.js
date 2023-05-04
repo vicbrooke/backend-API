@@ -1,7 +1,7 @@
 const { Article } = require("./Article");
 const { Comment } = require("./Comment");
 const { User } = require("./User");
-const { sequelize, Sequelize } = require("../db");
+const { db, Sequelize } = require("../db");
 
 // add relationships between Models here
 Article.belongsTo(User, { foreignKey: "userId" });
@@ -14,6 +14,6 @@ module.exports = {
   Article,
   Comment,
   User,
-  sequelize,
+  db,
   Sequelize,
 };
