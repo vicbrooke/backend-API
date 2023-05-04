@@ -22,9 +22,9 @@ describe("users", () => {
       // expect a response
       expect(response.body).toBeDefined();
       // toEqual checks deep equality in objects
-      expect(response.body[0]).toEqual(expect.objectContaining(users[0]));
-      expect(response.body[1]).toEqual(expect.objectContaining(users[1]));
-      expect(response.body[2]).toEqual(expect.objectContaining(users[2]));
+      expect(response.body.users[0]).toEqual(expect.objectContaining(users[0]));
+      expect(response.body.users[1]).toEqual(expect.objectContaining(users[1]));
+      expect(response.body.users[2]).toEqual(expect.objectContaining(users[2]));
     });
   });
 

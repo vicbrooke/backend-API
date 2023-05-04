@@ -23,9 +23,15 @@ describe("articles", () => {
       // expect a response
       expect(response.body).toBeDefined();
       // toEqual checks deep equality in objects
-      expect(response.body[0]).toEqual(expect.objectContaining(articles[0]));
-      expect(response.body[1]).toEqual(expect.objectContaining(articles[1]));
-      expect(response.body[2]).toEqual(expect.objectContaining(articles[2]));
+      expect(response.body.articles[0]).toEqual(
+        expect.objectContaining(articles[0])
+      );
+      expect(response.body.articles[1]).toEqual(
+        expect.objectContaining(articles[1])
+      );
+      expect(response.body.articles[2]).toEqual(
+        expect.objectContaining(articles[2])
+      );
     });
   });
 
