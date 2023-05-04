@@ -36,4 +36,23 @@ commentRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
+commentRouter.put("/:id", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const { id } = req.params;
+    const commentToUpdate = await Comment.findOne({ where: { id } });
+    if (!commentToUpdate) {
+      return res.status(404).send("Comment not found");
+    }
+    await commentToUpdate.update(data);
+    const updatedComment = await Comment.findOne({
+      where: { id: req.params.id },
+    });
+    res.status(200).send(updatedComment);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = commentRouter;

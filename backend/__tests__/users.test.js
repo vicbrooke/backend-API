@@ -67,4 +67,27 @@ describe("users", () => {
       expect(response.text).toBe("User with id 1 deleted");
     });
   });
+
+  describe("PUT /users/:id", () => {
+    const testUserData = {
+      username: "Testuser",
+      name: "Test User",
+      email: "test.user@test.com",
+    };
+    let response;
+    beforeAll(async () => {
+      response = await request(app).put("/users/2").send(testUserData);
+    });
+    it("should update the User matching the given id", () => {
+      expect(response.body.id).toBe(2);
+      expect(response.body.username).toEqual(testUserData.username);
+      expect(response.body.name).toEqual(testUserData.name);
+      expect(response.body.email).toEqual(testUserData.email);
+    });
+    it("should return a 404 error message if the User does not exist", async () => {
+      const response = await request(app).put("/users/99").send(testUserData);
+      expect(response.statusCode).toBe(404);
+      expect(response.text).toBe("User not found");
+    });
+  });
 });

@@ -36,4 +36,23 @@ articleRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
+articleRouter.put("/:id", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const { id } = req.params;
+    const articleToUpdate = await Article.findOne({ where: { id } });
+    if (!articleToUpdate) {
+      return res.status(404).send("Article not found");
+    }
+    await articleToUpdate.update(data);
+    const updatedArticle = await Article.findOne({
+      where: { id: req.params.id },
+    });
+    res.status(200).send(updatedArticle);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = articleRouter;

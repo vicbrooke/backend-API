@@ -69,4 +69,27 @@ describe("articles", () => {
       expect(response.text).toBe("Article with id 1 deleted");
     });
   });
+
+  describe("PUT /articles/:id", () => {
+    const testArticleData = {
+      title: "Updated Test Article",
+      body: "This is the updated test article",
+    };
+    let response;
+    beforeAll(async () => {
+      response = await request(app).put("/articles/2").send(testArticleData);
+    });
+    it("should update the article matching the given id", () => {
+      expect(response.body.id).toBe(2);
+      expect(response.body.title).toEqual(testArticleData.title);
+      expect(response.body.body).toEqual(testArticleData.body);
+    });
+    it("should return a 404 error message if the article does not exist", async () => {
+      const response = await request(app)
+        .put("/articles/99")
+        .send(testArticleData);
+      expect(response.statusCode).toBe(404);
+      expect(response.text).toBe("Article not found");
+    });
+  });
 });
