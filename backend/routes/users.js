@@ -15,4 +15,15 @@ userRouter.get("/", async (req, res, next) => {
   }
 });
 
+userRouter.post("/", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const newUser = await User.create(data);
+    res.status(200).send(newUser);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = userRouter;

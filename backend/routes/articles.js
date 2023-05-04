@@ -15,4 +15,15 @@ articleRouter.get("/", async (req, res, next) => {
   }
 });
 
+articleRouter.post("/", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const newArticle = await Article.create(data);
+    res.status(200).send(newArticle);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = articleRouter;

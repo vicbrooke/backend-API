@@ -6,6 +6,7 @@ const { db } = require("../db/db");
 // db setup
 const seed = require("../db/seedFn");
 const { articles } = require("../db/seedData");
+const { Article } = require("../db/models");
 
 describe("articles", () => {
   beforeAll(async () => {
@@ -13,16 +14,46 @@ describe("articles", () => {
     await seed();
   });
 
-  it("should return a list of articles", async () => {
-    // make a request
-    const response = await request(app).get("/articles");
-    // assert a response code
-    expect(response.status).toBe(200);
-    // expect a response
-    expect(response.body).toBeDefined();
-    // toEqual checks deep equality in objects
-    expect(response.body[0]).toEqual(expect.objectContaining(articles[0]));
-    expect(response.body[1]).toEqual(expect.objectContaining(articles[1]));
-    expect(response.body[2]).toEqual(expect.objectContaining(articles[2]));
+  describe("GET /articles", () => {
+    it("should return a list of articles", async () => {
+      // make a request
+      const response = await request(app).get("/articles");
+      // assert a response code
+      expect(response.status).toBe(200);
+      // expect a response
+      expect(response.body).toBeDefined();
+      // toEqual checks deep equality in objects
+      expect(response.body[0]).toEqual(expect.objectContaining(articles[0]));
+      expect(response.body[1]).toEqual(expect.objectContaining(articles[1]));
+      expect(response.body[2]).toEqual(expect.objectContaining(articles[2]));
+    });
+  });
+
+  describe("POST /articles", () => {
+    const testArticleData = {
+      title: "Test Articles",
+      author: "Joe Bloggs",
+      body: "This is a test article",
+      votes: 0,
+      userId: 1,
+    };
+    let response;
+    beforeEach(async () => {
+      response = await request(app).post("/articles").send(testArticleData);
+    });
+    it("should return the sent data", () => {
+      expect(response.body).toEqual(expect.objectContaining(testArticleData));
+    });
+    it("returned article should match database entry", async () => {
+      const articleInDb = await Article.findOne({
+        where: { id: response.body.id },
+      });
+      expect(articleInDb.id).toEqual(response.body.id);
+      expect(articleInDb.title).toEqual(response.body.title);
+      expect(articleInDb.author).toEqual(response.body.author);
+      expect(articleInDb.body).toEqual(response.body.body);
+      expect(articleInDb.votes).toEqual(response.body.votes);
+      expect(articleInDb.userId).toEqual(response.body.userId);
+    });
   });
 });
