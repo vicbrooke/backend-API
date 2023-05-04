@@ -36,4 +36,23 @@ userRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
+userRouter.put("/:id", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const { id } = req.params;
+    const userToUpdate = await User.findOne({ where: { id } });
+    if (!userToUpdate) {
+      return res.status(404).send("User not found");
+    }
+    await userToUpdate.update(data);
+    const updatedUser = await User.findOne({
+      where: { id: req.params.id },
+    });
+    res.status(200).send(updatedUser);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 module.exports = userRouter;

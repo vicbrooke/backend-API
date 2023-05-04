@@ -60,4 +60,25 @@ describe("users", () => {
       expect(response.text).toBe("Comment with id 1 deleted");
     });
   });
+
+  describe("PUT /comments/:id", () => {
+    const testCommentData = {
+      body: "This is the updated test comment",
+    };
+    let response;
+    beforeAll(async () => {
+      response = await request(app).put("/comments/2").send(testCommentData);
+    });
+    it("should update the Comment matching the given id", () => {
+      expect(response.body.id).toBe(2);
+      expect(response.body.body).toEqual(testCommentData.body);
+    });
+    it("should return a 404 error message if the comment does not exist", async () => {
+      const response = await request(app)
+        .put("/comments/99")
+        .send(testCommentData);
+      expect(response.statusCode).toBe(404);
+      expect(response.text).toBe("Comment not found");
+    });
+  });
 });
