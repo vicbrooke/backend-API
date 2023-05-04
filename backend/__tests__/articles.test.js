@@ -56,4 +56,17 @@ describe("articles", () => {
       expect(articleInDb.userId).toEqual(response.body.userId);
     });
   });
+
+  describe("DELETE /articles/:id", () => {
+    let response;
+    beforeAll(async () => {
+      response = await request(app).delete("/articles/1");
+    });
+    it("should delete the article matching the given id", async () => {
+      expect(await Article.findOne({ where: { id: 1 } })).toBeNull();
+    });
+    it("should return confirmation message", () => {
+      expect(response.text).toBe("Article with id 1 deleted");
+    });
+  });
 });
