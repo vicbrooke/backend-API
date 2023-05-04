@@ -34,7 +34,7 @@ describe("users", () => {
       articleId: 1,
     };
     let response;
-    beforeEach(async () => {
+    beforeAll(async () => {
       response = await request(app).post("/comments").send(testCommentData);
     });
     it("should return the sent data", () => {
@@ -45,6 +45,19 @@ describe("users", () => {
         where: { id: response.body.id },
       });
       expect(commentInDb.id).toEqual(response.body.id);
+    });
+  });
+
+  describe("DELETE /comments/:id", () => {
+    let response;
+    beforeAll(async () => {
+      response = await request(app).delete("/comments/1");
+    });
+    it("should delete the comment matching the given id", async () => {
+      expect(await Comment.findOne({ where: { id: 1 } })).toBeNull();
+    });
+    it("should return confirmation message", () => {
+      expect(response.text).toBe("Comment with id 1 deleted");
     });
   });
 });

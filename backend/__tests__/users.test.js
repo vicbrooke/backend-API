@@ -54,4 +54,17 @@ describe("users", () => {
       expect(userInDb.avatar_URL).toEqual(response.body.avatar_URL);
     });
   });
+
+  describe("DELETE /users/:id", () => {
+    let response;
+    beforeAll(async () => {
+      response = await request(app).delete("/users/1");
+    });
+    it("should delete the user matching the given id", async () => {
+      expect(await User.findOne({ where: { id: 1 } })).toBeNull();
+    });
+    it("should return confirmation message", () => {
+      expect(response.text).toBe("User with id 1 deleted");
+    });
+  });
 });
