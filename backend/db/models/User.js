@@ -1,4 +1,5 @@
 const { Sequelize, db } = require("../db");
+const bcrypt = require("bcrypt");
 
 const User = db.define("user", {
   id: {
@@ -11,6 +12,12 @@ const User = db.define("user", {
   password: Sequelize.STRING,
   email: Sequelize.STRING,
   avatar_URL: Sequelize.STRING,
+});
+
+// before a user is created, hash the password
+User.beforeCreate(async (user) => {
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  user.password = hashedPassword;
 });
 
 module.exports = { User };
