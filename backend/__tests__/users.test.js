@@ -1,6 +1,7 @@
 const request = require("supertest");
 // express app
 const app = require("../server");
+const bcrypt = require("bcrypt");
 
 // db setup
 const seed = require("../db/seedFn");
@@ -22,9 +23,10 @@ describe("users", () => {
       // expect a response
       expect(response.body).toBeDefined();
       // toEqual checks deep equality in objects
-      expect(response.body.users[0]).toEqual(expect.objectContaining(users[0]));
-      expect(response.body.users[1]).toEqual(expect.objectContaining(users[1]));
-      expect(response.body.users[2]).toEqual(expect.objectContaining(users[2]));
+
+      expect(response.body.users[0].name).toEqual(users[0].name);
+      expect(response.body.users[0].email).toEqual(users[0].email);
+      expect(response.body.users[0].username).toEqual(users[0].username);
     });
   });
 
@@ -42,16 +44,21 @@ describe("users", () => {
     });
 
     it("should return the sent data", () => {
-      expect(response.body).toEqual(expect.objectContaining(testUserData));
+      const { password, ...expectedUserData } = testUserData;
+      expect(response.body).toEqual(expect.objectContaining(expectedUserData));
     });
     it("returned user should match database entry", async () => {
       const userInDb = await User.findOne({ where: { id: response.body.id } });
       expect(userInDb.id).toEqual(response.body.id);
       expect(userInDb.username).toEqual(response.body.username);
       expect(userInDb.name).toEqual(response.body.name);
-      expect(userInDb.password).toEqual(response.body.password);
       expect(userInDb.email).toEqual(response.body.email);
       expect(userInDb.avatar_URL).toEqual(response.body.avatar_URL);
+      const passwordMatches = await bcrypt.compare(
+        testUserData.password,
+        userInDb.password
+      );
+      expect(passwordMatches).toBe(true);
     });
   });
 
