@@ -36,7 +36,7 @@ app.post("/login", async (req, res, next) => {
     }
 
     const token = jwt.sign({ user }, process.env.JWT_SECRET);
-    res.status(202).send({ user, token }, res.redirect("/api"));
+    res.status(202).send({ user, token });
   } catch (err) {
     next(err);
   }
