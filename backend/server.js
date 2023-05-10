@@ -3,14 +3,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
-const userRouter = require("./routes/users");
-const articleRouter = require("./routes/articles");
-const commentRouter = require("./routes/comments");
-const { getApi } = require("./routes/getApi");
+const {
+  articleRouter,
+  commentRouter,
+  getApi,
+  loginRouter,
+  registerRouter,
+  userRouter,
+} = require("./routes/index");
 const { auth } = require("express-openid-connect");
 const config = require("../authConfig");
-const loginRouter = require("./routes/login");
-const registerRouter = require("./routes/register");
 
 // middleware
 app.use(cors());
