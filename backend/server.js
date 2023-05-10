@@ -11,7 +11,7 @@ const {
   registerRouter,
   userRouter,
 } = require("./routes/index");
-const { auth } = require("express-openid-connect");
+const { auth, requiresAuth } = require("express-openid-connect");
 const config = require("../authConfig");
 
 // middleware
@@ -26,15 +26,17 @@ app.use(auth(config));
 // req.isAuthenticated is provided from the auth router
 app.get("/", (req, res) => {
   req.oidc.isAuthenticated()
-    ? res.send(res.redirect("/api"))
-    : res.send("Logged out");
+    ? res.redirect("/api")
+    : res.send(
+        "<h2>You do not have access to this API.</h2><h3>Please login or register</h3>"
+      );
 });
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
-app.use("/users", userRouter);
-app.use("/articles", articleRouter);
-app.use("/comments", commentRouter);
-app.use("/api", getApi);
+app.use("/users", requiresAuth(), userRouter);
+app.use("/articles", requiresAuth(), articleRouter);
+app.use("/comments", requiresAuth(), commentRouter);
+app.use("/api", requiresAuth(), getApi);
 
 module.exports = app;
