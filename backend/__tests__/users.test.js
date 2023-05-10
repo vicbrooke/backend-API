@@ -27,6 +27,7 @@ describe("users", () => {
       expect(response.body.users[0].name).toEqual(users[0].name);
       expect(response.body.users[0].email).toEqual(users[0].email);
       expect(response.body.users[0].username).toEqual(users[0].username);
+      expect(response.body.users[0]).not.toHaveProperty("password");
     });
   });
 
