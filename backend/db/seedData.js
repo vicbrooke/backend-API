@@ -199,21 +199,18 @@ const users = [
   {
     username: "joebloggs",
     name: "Joe Bloggs",
-    password: "Password!23",
     email: "joebloggs@example.com",
     avatar_URL: "https://example.com/avatar/joebloggs.jpg",
   },
   {
     username: "sarahsmith",
     name: "Sarah Smith",
-    password: "P@ssw0rd",
     email: "sarahsmith@gmail.com",
     avatar_URL: "https://example.com/avatar/sarahsmith.png",
   },
   {
     username: "markjones",
     name: " Mark Jones",
-    password: "Test!2345678",
     email: "markjones@yahoo.com",
     avatar_URL: "https://example.com/avatar/markjones.jpeg",
   },
