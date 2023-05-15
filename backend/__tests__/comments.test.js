@@ -2,12 +2,16 @@ const request = require("supertest");
 // express app
 const app = require("../server");
 
+// jest mocking of user
+jest.mock("../middleware/oidcAuth");
+jest.mock("../middleware/oidcRequiresAuth");
+
 // db setup
 const seed = require("../db/seedFn");
 const { comments } = require("../db/seedData");
 const { Comment } = require("../db/models");
 
-describe("users", () => {
+describe("comments", () => {
   beforeAll(async () => {
     // rebuild db before the test suite runs
     await seed();
