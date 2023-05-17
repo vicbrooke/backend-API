@@ -12,15 +12,15 @@ const {
   articleRouter,
   commentRouter,
   getApi,
-  loginRouter,
-  registerRouter,
+  // loginRouter,
+  // registerRouter,
   userRouter,
 } = require("./routes/index");
 
 // provides authentication functionality using OpenID Connect
-const { auth, requiresAuth } = require("express-openid-connect");
+// const { auth, requiresAuth } = require("express-openid-connect"); - moved into middleware files
 
-const config = require("../authConfig");
+// const config = require("../authConfig"); - moved into middleware file
 const oidcAuth = require("./middleware/oidcAuth");
 const oidcRequiresAuth = require("./middleware/oidcRequiresAuth");
 const { checkRegisteredUser } = require("./middleware/checkRegisteredUser");
