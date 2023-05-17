@@ -1,4 +1,5 @@
+// provides authentication functionality using OpenID Connect
 const { auth } = require("express-openid-connect");
-const { authConfig } = require("../../authConfig");
+const config = require("../../authConfig");
 
-module.exports = auth(authConfig);
+module.exports = auth(config);
