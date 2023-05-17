@@ -2,8 +2,6 @@ const { User } = require("../db/models");
 
 exports.checkRegisteredUser = async (req, res, next) => {
   if (req.oidc?.user) {
-    console.log("checking");
-    console.log(req.oidc?.user);
     try {
       const [user] = await User.findOrCreate({
         where: {
