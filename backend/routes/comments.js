@@ -1,6 +1,5 @@
 const { Comment, Article, User } = require("../db/models");
 const { Router } = require("express");
-const setUser = require("../middleware/setUser");
 
 const commentRouter = Router();
 
