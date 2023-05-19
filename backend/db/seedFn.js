@@ -1,6 +1,5 @@
 const { db } = require("./db");
 const { Article, Comment, User } = require("./models");
-const bcrypt = require("bcrypt");
 
 const { articles, comments, users } = require("./seedData");
 
