@@ -8,7 +8,7 @@ const Comment = db.define("comment", {
   },
   body: Sequelize.STRING,
   votes: Sequelize.INTEGER,
-  author: Sequelize.STRING,
+  // author: Sequelize.STRING,
 });
 
 module.exports = { Comment };
