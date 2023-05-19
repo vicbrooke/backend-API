@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
   req.oidc.isAuthenticated()
     ? res.redirect("/api")
     : res.send(
-        "<h2>You do not have access to this API.</h2><h3>Please <a href='http://localhost:4000/login'>login</a> or <a href='http://localhost:4000/register'>register</a></h3>"
+        "<h2>You do not have access to this API.</h2><h3>Please <a href='http://localhost:4000/login'>login</a>"
       );
 });
 
