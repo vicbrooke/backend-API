@@ -1,5 +1,6 @@
-const { Comment, Article } = require("../db/models");
+const { Comment, Article, User } = require("../db/models");
 const { Router } = require("express");
+const setUser = require("../middleware/setUser");
 
 const commentRouter = Router();
 
@@ -15,11 +16,24 @@ commentRouter.get("/", async (req, res, next) => {
   }
 });
 
+commentRouter.get("/:id", async (req, res, next) => {
+  try {
+    const comment = await Comment.findOne({
+      where: { id: req.params.id },
+      include: [Article, User],
+    });
+    res.status(200).send({ comment });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 commentRouter.post("/", async (req, res, next) => {
   try {
     const data = req.body;
     const newComment = await Comment.create(data);
-    res.status(200).send(newComment);
+    res.status(200).send({ newComment });
   } catch (error) {
     console.log(error);
     next(error);
@@ -28,8 +42,17 @@ commentRouter.post("/", async (req, res, next) => {
 
 commentRouter.delete("/:id", async (req, res, next) => {
   try {
-    await Comment.destroy({ where: { id: req.params.id } });
-    res.status(202).send(`Comment with id ${req.params.id} deleted`);
+    const { id } = req.params;
+    const commentToDelete = await Comment.findOne({
+      where: { id },
+      include: User,
+    });
+    if (commentToDelete.user.username === req.oidc.user.username) {
+      await Comment.destroy({ where: { id } });
+      res.status(202).send(`Comment with id ${id} deleted`);
+    } else {
+      res.status(401).send("You do not have permission to delete this comment");
+    }
   } catch (error) {
     console.log(error);
     next(error);
@@ -40,15 +63,22 @@ commentRouter.put("/:id", async (req, res, next) => {
   try {
     const data = req.body;
     const { id } = req.params;
-    const commentToUpdate = await Comment.findOne({ where: { id } });
+    const commentToUpdate = await Comment.findOne({
+      where: { id },
+      include: User,
+    });
     if (!commentToUpdate) {
       return res.status(404).send("Comment not found");
     }
-    await commentToUpdate.update(data);
-    const updatedComment = await Comment.findOne({
-      where: { id: req.params.id },
-    });
-    res.status(200).send(updatedComment);
+    if (commentToUpdate.user.username === req.oidc.user.username) {
+      await commentToUpdate.update(data);
+      const updatedComment = await Comment.findOne({
+        where: { id },
+      });
+      res.status(200).send({ updatedComment });
+    } else {
+      res.status(401).send("You do not have permission to update this comment");
+    }
   } catch (error) {
     console.log(error);
     next(error);
