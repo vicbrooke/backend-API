@@ -7,18 +7,22 @@ const { articles, comments, users } = require("./seedData");
 const seed = async () => {
   try {
     await db.sync({ force: true }); // recreate db
-    const usersWithHashedPasswords = await Promise.all(
-      users.map(async (user) => {
-        const hash = await bcrypt.hash(user.password, 10);
-        return {
-          ...user,
-          password: hash,
-        };
-      })
-    );
-    const createdUsers = await User.bulkCreate(usersWithHashedPasswords);
-    const createdArticles = await Article.bulkCreate(articles);
-    const createdComments = await Comment.bulkCreate(comments);
+
+    // no longer storing passwords in database so don't need this code
+
+    // const usersWithHashedPasswords = await Promise.all(
+    //   users.map(async (user) => {
+    //     const hash = await bcrypt.hash(user.password, 10);
+    //     return {
+    //       ...user,
+    //       password: hash,
+    //     };
+    //   })
+    // );
+
+    await User.bulkCreate(users);
+    await Article.bulkCreate(articles);
+    await Comment.bulkCreate(comments);
   } catch (error) {
     console.error(error);
   }

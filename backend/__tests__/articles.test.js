@@ -1,7 +1,10 @@
 const request = require("supertest");
 // express app
 const app = require("../server");
-const { db } = require("../db/db");
+
+// jest mocking of user
+jest.mock("../middleware/oidcAuth");
+jest.mock("../middleware/oidcRequiresAuth");
 
 // db setup
 const seed = require("../db/seedFn");

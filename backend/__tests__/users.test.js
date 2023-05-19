@@ -3,6 +3,10 @@ const request = require("supertest");
 const app = require("../server");
 const bcrypt = require("bcrypt");
 
+// jest mocking of user
+jest.mock("../middleware/oidcAuth");
+jest.mock("../middleware/oidcRequiresAuth");
+
 // db setup
 const seed = require("../db/seedFn");
 const { users } = require("../db/seedData");
@@ -55,11 +59,11 @@ describe("users", () => {
       expect(userInDb.name).toEqual(response.body.name);
       expect(userInDb.email).toEqual(response.body.email);
       expect(userInDb.avatar_URL).toEqual(response.body.avatar_URL);
-      const passwordMatches = await bcrypt.compare(
-        testUserData.password,
-        userInDb.password
-      );
-      expect(passwordMatches).toBe(true);
+      // const passwordMatches = await bcrypt.compare(
+      //   testUserData.password,
+      //   userInDb.password
+      // );
+      // expect(passwordMatches).toBe(true);
     });
   });
 
