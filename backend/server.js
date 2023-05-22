@@ -26,7 +26,11 @@ const oidcRequiresAuth = require("./middleware/oidcRequiresAuth");
 const { checkRegisteredUser } = require("./middleware/checkRegisteredUser");
 
 // middleware
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+};
+
+app.use(cors(corsOptions));
 
 // configures Morgan to log HTTP requests in the "dev" format, which includes the request method, URL, response status, and response time.
 app.use(morgan("dev"));
