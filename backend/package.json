@@ -4,9 +4,9 @@
   "description": "A back end, RESTful CRUD application complete with Authentication and Authorization",
   "main": "index.js",
   "scripts": {
-    "seed": "node backend/db/seed.js",
-    "start": "node backend/listen.js",
-    "start-dev": "nodemon backend/listen.js",
+    "seed": "node db/seed.js",
+    "start": "node listen.js",
+    "start-dev": "nodemon listen.js",
     "test": "export NODE_ENV=test && jest --watch-all"
   },
   "keywords": [],
