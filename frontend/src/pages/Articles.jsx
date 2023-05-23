@@ -14,7 +14,7 @@ function Articles() {
       })
       .then((response) => {
         console.log(response.data);
-        setArticles(response.data);
+        setArticles(response.data.articles);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -25,7 +25,20 @@ function Articles() {
   if (isLoading) {
     console.log(articles);
   }
-  return <section>Articles</section>;
+  return (
+    !isLoading && (
+      <section>
+        {articles.map((article) => {
+          return (
+            <div>
+              <h1>{article.title}</h1>
+              <p>{article.body}</p>
+            </div>
+          );
+        })}
+      </section>
+    )
+  );
 }
 
 export default Articles;
