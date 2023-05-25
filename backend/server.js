@@ -12,8 +12,6 @@ const {
   articleRouter,
   commentRouter,
   getApi,
-  // loginRouter,
-  // registerRouter,
   userRouter,
 } = require("./routes/index");
 
@@ -49,8 +47,6 @@ app.get("/", (req, res) => {
       );
 });
 
-// app.use("/login", loginRouter);
-// app.use("/register", registerRouter);
 app.use("/users", oidcRequiresAuth, userRouter);
 app.use("/articles", oidcRequiresAuth, articleRouter);
 app.use("/comments", oidcRequiresAuth, commentRouter);
