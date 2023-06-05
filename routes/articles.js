@@ -7,7 +7,11 @@ const articleRouter = Router();
 
 articleRouter.get("/", async (req, res, next) => {
   try {
-    const articles = await Article.findAll();
+    const { limit = 10, page = 1 } = req.query;
+    const articles = await Article.findAll({
+      limit,
+      offset: limit * (page - 1),
+    });
     res.status(200).send({ articles });
   } catch (error) {
     console.log(error);
