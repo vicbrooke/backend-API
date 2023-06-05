@@ -61,6 +61,9 @@ describe("articles", () => {
         expect.arrayContaining(expectedComments)
       );
     });
+    it("should return the user for each comment", () => {
+      expect(response.body.article.comments[0].user).toBeDefined();
+    });
     it("should return the associated user data", () => {
       expect(response.body.article.user).toBeDefined();
       expect(response.body.article.user).toEqual(
