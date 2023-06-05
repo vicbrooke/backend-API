@@ -24,7 +24,7 @@ articleRouter.get("/:id", async (req, res, next) => {
     const article = await Article.findOne({
       where: { id: req.params.id },
 
-      include: [Comment, User],
+      include: [{ model: User }, { model: Comment, include: [User] }],
     });
     res.status(200).send({ article });
   } catch (error) {
