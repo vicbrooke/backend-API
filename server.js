@@ -47,9 +47,9 @@ app.get("/", (req, res) => {
       );
 });
 
+app.use("/api", getApi);
 app.use("/users", oidcRequiresAuth, userRouter);
 app.use("/articles", oidcRequiresAuth, articleRouter);
 app.use("/comments", oidcRequiresAuth, commentRouter);
-app.use("/api", oidcRequiresAuth, getApi);
 
 module.exports = app;
