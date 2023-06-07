@@ -11,6 +11,7 @@ articleRouter.get("/", async (req, res, next) => {
     const articles = await Article.findAll({
       limit,
       offset: limit * (page - 1),
+      include: [Comment, User],
     });
     res.status(200).send({ articles });
   } catch (error) {
